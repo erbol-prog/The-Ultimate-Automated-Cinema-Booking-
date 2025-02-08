@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Ticket</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Book Your Ticket</h1>
+        <a href="{{ url_for('sessions') }}" class="back-link">Back to Sessions</a>
+    </header>
+    <main>
+        <section>
+            <h2>Session Details</h2>
+            <p><strong>Movie:</strong> {{ session.movie.title }}</p>
+            <p><strong>Date:</strong> {{ session.date }}</p>
+            <p><strong>Time:</strong> {{ session.time }}</p>
+            <p><strong>Hall:</strong> {{ session.hall }}</p>
+            <p><strong>Available Seats:</strong> {{ session.available_seats }}</p>
+        </section>
+
+        <section>
+            <h2>Select Your Seat</h2>
+            <form action="{{ url_for('book_ticket', session_id=session.id) }}" method="POST">
+                <div class="seat-grid">
+                    {% for seat in range(1, session.total_seats + 1) %}
+                        <label class="seat {% if seat|string in taken_seats %}occupied{% else %}available{% endif %}">
+                            <input
+                                type="radio"
+                                name="seat_number"
+                                value="{{ seat }}"
+                                {% if seat|string in taken_seats %}disabled{% endif %}
+                            >
+                            {{ seat }}
+                        </label>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="book-button">Book Now</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

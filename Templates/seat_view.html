@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Seat Details</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #141e30 20%, #0f2027 80%);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            cursor: none; /* Hide default cursor */
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 900px;
+            background-color: rgba(15, 15, 34, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ff00c8;
+            text-shadow: 0 0 10px #ff00c8;
+        }
+
+        h2, h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #cccccc;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+        }
+
+        .legend-box.green {
+            background-color: green;
+        }
+
+        .legend-box.red {
+            background-color: red;
+        }
+
+        .seat-container {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .seat {
+            width: 40px;
+            height: 40px;
+            background-color: green;
+            border: 1px solid #444;
+            text-align: center;
+            line-height: 40px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .seat.booked {
+            background-color: red;
+            cursor: not-allowed;
+        }
+
+        /* Custom Cursor */
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .cursor, .cursor-follower {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor {
+            width: 10px;
+            height: 10px;
+            background-color: #ff00c8;
+            box-shadow: 0 0 12px rgba(255, 0, 200, 0.8);
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 0, 200, 0.2);
+            transition: all 0.2s ease;
+        }
+        .button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background: #ff00c8;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease, transform 0.3s ease;
+    text-align: center;
+}
+
+.button:hover {
+    background: #e600b8;
+    transform: scale(1.03);
+}
+
+.button:active {
+    transform: scale(0.97);
+    background: #d400a5;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background: #ff00c8;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease, transform 0.3s ease;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow for better visibility */
+}
+
+.button:hover {
+    background: #e600b8;
+    transform: scale(1.03);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+}
+
+.button:active {
+    background: #d400a5;
+    transform: scale(0.97); /* Slight press effect */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
+}
+/* Modal Background */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Modal Content Box */
+.modal-content {
+    background: linear-gradient(to bottom, #141e30, #0f2027); /* Gradient Background */
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: #fff;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    animation: modal-appear 0.5s ease-in-out;
+}
+
+/* Modal Close Button */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover {
+    color: #ff00c8;
+}
+
+/* Modal Header */
+.modal-content h2 {
+    color: #ff00c8;
+    text-shadow: 0 0 10px #ff00c8;
+    margin-bottom: 15px;
+}
+
+/* Modal Paragraph */
+.modal-content p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #cccccc;
+}
+
+/* Modal Animation */
+@keyframes modal-appear {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+
+        @media (max-width: 768px) {
+            .seat-container {
+                grid-template-columns: repeat(8, 1fr);
+                gap: 8px;
+            }
+
+            .seat {
+                width: 35px;
+                height: 35px;
+                line-height: 35px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="custom-cursor">
+        <div class="cursor"></div>
+        <div class="cursor-follower"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>View Seat Details</h1>
+    <nav>
+        <!-- Add a Back button to return to the previous page -->
+        <a href="javascript:history.back()" class="button">Back</a>
+    </nav>
+
+
+        </header>
+
+        <main>
+            <h2>{{ session.movie.title }} - {{ session.date }} at {{ session.time }}</h2>
+            <h3>Hall: {{ session.hall }}</h3>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-box green"></div>
+                    Available
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box red"></div>
+                    Booked
+                </div>
+            </div>
+
+            <div class="seat-container">
+                {% for seat in range(1, session.total_seats + 1) %}
+                <div
+                    class="seat {% if seat in taken_seats %}booked{% endif %}"
+                    data-seat="{{ seat }}"
+                    {% if seat in taken_seats %} onclick="seeCustomer({{ seat }})" {% endif %}>
+                    {{ seat }}
+                </div>
+                {% endfor %}
+            </div>
+        </main>
+        <!-- Custom Modal for Seat Details -->
+<div id="seatModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Seat Details</h2>
+        <p id="modalDetails"></p>
+    </div>
+</div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const cursor = document.querySelector('.cursor');
+    const follower = document.querySelector('.cursor-follower');
+
+    // Move cursor and follower
+    document.addEventListener('mousemove', (e) => {
+        const { clientX: x, clientY: y } = e;
+        cursor.style.transform = `translate(${x}px, ${y}px)`;
+        follower.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    // Add hover effect on interactive elements
+    document.querySelectorAll('button, a, input, select, .seat').forEach((elem) => {
+        elem.addEventListener('mouseenter', () => {
+            follower.style.width = '60px';
+            follower.style.height = '60px';
+            follower.style.backgroundColor = 'rgba(255, 0, 200, 0.4)';
+        });
+
+        elem.addEventListener('mouseleave', () => {
+            follower.style.width = '40px';
+            follower.style.height = '40px';
+            follower.style.backgroundColor = 'rgba(255, 0, 200, 0.2)';
+        });
+    });
+
+    // Hide the default cursor
+    document.body.style.cursor = 'none';
+});
+
+
+       function seeCustomer(seat) {
+    const customers = JSON.parse('{{ customers | tojson | safe }}');
+    const customer = customers[seat];
+    const modal = document.getElementById("seatModal");
+    const modalDetails = document.getElementById("modalDetails");
+
+    if (customer) {
+        modalDetails.innerHTML = `
+            <strong>Seat:</strong> ${seat}<br>
+            <strong>Username:</strong> ${customer.username}<br>
+            <strong>Email:</strong> ${customer.email}
+        `;
+    } else {
+        modalDetails.innerHTML = `No customer details available for Seat ${seat}.`;
+    }
+
+    // Show the modal
+    modal.style.display = "flex";
+
+    // Close the modal when clicking the close button
+    document.querySelector(".close-button").onclick = () => {
+        modal.style.display = "none";
+    };
+
+    // Close the modal when clicking outside the modal content
+    window.onclick = (event) => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    };
+}
+
+
+    </script>
+</body>
+</html>

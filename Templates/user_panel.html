@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Panel</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        /* General Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #141e30 20%, #0f2027 80%);
+            color: #fff;
+            cursor: none;
+            overflow-y: auto;
+        }
+
+        header {
+            background: rgba(15, 15, 34, 0.9);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #ff00c8;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            color: #ff00c8;
+            text-shadow: 0 0 8px #ff00c8;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        header nav {
+            margin-top: 10px;
+        }
+
+        header nav a {
+            text-decoration: none;
+            color: #ff00c8;
+            padding: 8px 16px;
+            background: rgba(255, 0, 200, 0.2);
+            border-radius: 5px;
+            transition: background 0.3s ease, transform 0.3s ease;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        header nav a:hover {
+            background: rgba(255, 0, 200, 0.4);
+            transform: scale(1.05);
+        }
+
+        main {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        section h2 {
+            font-size: 1.8rem;
+            color: #ff00c8;
+            text-shadow: 0 0 8px #ff00c8;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+
+
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .form-group select,
+        .form-group input {
+            padding: 10px;
+            font-size: 0.9rem;
+            border: 1px solid #3a3a3a;
+            border-radius: 5px;
+            background-color: #1a1a2e;
+            color: #fff;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-group input[type="date"] {
+            font-size: 0.9rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #ff00c8;
+            outline: none;
+            box-shadow: 0 0 6px rgba(255, 0, 200, 0.7);
+        }
+
+        .button {
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            background-color: #ff00c8;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-weight: 600;
+            text-decoration: none; /* Removed underline */
+            display: inline-block;
+            text-align: center;
+        }
+
+        .button:hover {
+            background-color: #e600b8;
+            transform: scale(1.03);
+        }
+
+/* Center the form */
+.form-container {
+    display: flex;
+    flex-direction: column; /* Align items vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: center;
+    gap: 10px; /* Slightly smaller spacing */
+    margin: 15px auto; /* Center with reduced vertical spacing */
+    width: 100%; /* Full container width */
+    max-width: 300px; /* Reduced maximum width */
+    animation: fadeIn 1s ease-in-out; /* Smooth fade-in animation */
+    transform: scale(1); /* Removed extra scaling */
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(255, 0, 200, 0.3); /* Subtle shadow effect */
+}
+
+/* Smooth fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-15px) scale(1.02);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Style for form groups */
+.form-group {
+    display: flex;
+    flex-direction: column; /* Stack label and input */
+    width: 100%; /* Full width within container */
+    text-align: center; /* Center text */
+}
+
+.form-group label {
+    margin-bottom: 4px;
+    font-size: 1rem; /* Reduced label size */
+    font-weight: 500;
+    color: #fff; /* Keep white text */
+    font-family: 'Poppins', sans-serif; /* Modern font */
+}
+
+/* Style for selects */
+.form-group select {
+    height: auto;
+    font-size: 0.9rem; /* Reduced font size */
+    font-family: 'Poppins', sans-serif;
+    padding: 8px; /* Reduced padding */
+    box-sizing: border-box;
+    background-color: rgba(26, 26, 46, 0.9); /* Transparent dark theme */
+    color: #fff;
+    border: 2px solid #ff00c8; /* Highlight border */
+    border-radius: 6px; /* Slightly smaller rounded corners */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover and focus effects for selects */
+.form-group select:focus, .form-group select:hover {
+    outline: none;
+    border-color: #e600b8;
+    box-shadow: 0 0 8px rgba(255, 0, 200, 0.5); /* Glow effect */
+}
+
+/* Input fields */
+.form-group input {
+    padding: 8px;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+    border: 2px solid #ff00c8;
+    border-radius: 6px;
+    background-color: rgba(26, 26, 46, 0.9);
+    color: #fff;
+    text-align: center;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #e600b8;
+    box-shadow: 0 0 8px rgba(255, 0, 200, 0.5);
+    outline: none;
+}
+
+/* Button group container */
+.apply-button-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px; /* Reduced spacing above button */
+    width: 100%;
+}
+
+/* Button style */
+.apply-button {
+    width: 100%; /* Match width of form elements */
+    padding: 10px 0; /* Reduced padding for smaller height */
+    font-size: 1rem; /* Smaller font size */
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ff00c8, #e600b8);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 12px rgba(255, 0, 200, 0.3);
+}
+
+/* Button hover effect */
+.apply-button:hover {
+    background: linear-gradient(135deg, #e600b8, #ff00c8);
+    transform: scale(1.03); /* Slight hover enlargement */
+    box-shadow: 0 4px 15px rgba(255, 0, 200, 0.5);
+}
+
+/* Button click effect */
+.apply-button:active {
+    transform: scale(0.97); /* Slight shrink effect on click */
+    box-shadow: 0 2px 8px rgba(255, 0, 200, 0.3);
+}
+
+
+select {
+    height: 38px; /* Ensure dropdown height matches the button */
+    font-size: 0.9rem; /* Consistent font size */
+}
+
+
+
+select {
+    height: 38px; /* Ensure all select elements match button height */
+    font-size: 0.9rem;
+}
+
+
+
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        table th,
+        table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #444;
+            word-wrap: break-word;
+        }
+
+        table th {
+            background-color: #1a1a2e;
+            color: #ff00c8;
+            font-weight: 600;
+        }
+
+        table tr:nth-child(even) {
+            background-color: rgba(15, 15, 34, 0.9);
+        }
+
+        table tr:hover {
+            background-color: rgba(255, 0, 200, 0.1);
+        }
+
+        /* Custom Cursor */
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 10000;
+        }
+
+        .cursor,
+        .cursor-follower {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor {
+            width: 10px;
+            height: 10px;
+            background-color: #ff00c8;
+            box-shadow: 0 0 12px rgba(255, 0, 200, 0.8);
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 0, 200, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.6rem;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+
+            table th, table td {
+                font-size: 0.85rem;
+                padding: 8px;
+            }
+
+            .button {
+                font-size: 0.8rem;
+                padding: 6px 10px; /* Adjusted for mobile */
+            }
+
+            main {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.4rem;
+            }
+
+            section h2 {
+                font-size: 1.3rem;
+            }
+
+            table th, table td {
+                font-size: 0.8rem;
+                padding: 6px;
+            }
+
+            .button {
+                font-size: 0.75rem;
+                padding: 6px 8px; /* Adjusted for small screens */
+            }
+
+            main {
+                padding: 15px;
+            }
+        }
+        #notifications {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.notification {
+    display: inline-block;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+    animation: fadeIn 0.5s;
+    transition: opacity 0.3s ease-out, transform 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.notification.success {
+    background: linear-gradient(135deg, #28a745, #218838); /* Green gradient */
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.4);
+}
+
+.notification.danger {
+    background: linear-gradient(135deg, #dc3545, #bd2130); /* Red gradient */
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.4);
+}
+
+.notification.info {
+    background: linear-gradient(135deg, #17a2b8, #117a8b); /* Blue gradient */
+    box-shadow: 0 4px 8px rgba(23, 162, 184, 0.4);
+}
+
+.notification.warning {
+    background: linear-gradient(135deg, #ffc107, #d39e00); /* Yellow gradient */
+    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.4);
+}
+
+.notification:hover {
+    transform: scale(1.05); /* Slight enlargement on hover */
+    cursor: pointer;
+}
+
+.notification .close-notification {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    margin-left: 10px;
+    cursor: pointer;
+    float: right;
+}
+
+.notification .close-notification:hover {
+    color: #ddd;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+#backgroundCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Keeps it behind other elements */
+    background: linear-gradient(to bottom, #141e30, #0f2027); /* Fallback background */
+}
+.button-group {
+    display: flex;
+    gap: 10px; /* Space between the buttons */
+}
+
+.button-group .button {
+    flex: 1; /* Make both buttons take equal available space */
+    text-align: center;
+}
+
+
+    </style>
+</head>
+<body>
+    <canvas id="backgroundCanvas"></canvas>
+
+    <div id="custom-cursor">
+        <div class="cursor"></div>
+        <div class="cursor-follower"></div>
+    </div>
+
+    <header>
+        <h1>User Panel</h1>
+        <nav>
+            <a href="{{ url_for('auth.logout') }}">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+
+    <!-- Notification Section -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+        <div id="notifications">
+            {% for category, message in messages %}
+            <div class="notification {{ category }}">
+                <span>{{ message }}</span>
+                <button class="close-notification">&times;</button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    {% endwith %}
+
+        <section>
+            <h2>Filter Sessions</h2>
+          <form method="POST" action="{{ url_for('user_panel') }}" class="form-container">
+    <div class="form-group">
+        <label for="movie_id">Filter by Movie:</label>
+        <select name="movie_id" id="movie_id">
+            <option value="all">All Movies</option>
+            {% for movie in movies %}
+            <option value="{{ movie.id }}" {% if movie.id == (selected_movie_id | int) %}selected{% endif %}>
+                {{ movie.title }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="date">Filter by Date:</label>
+        <select name="date" id="date">
+            <option value="all">All Dates</option>
+            {% for date in dates %}
+            <option value="{{ date }}" {% if date == selected_date %}selected{% endif %}>
+                {{ date }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="apply-button-group">
+        <button type="submit" class="button apply-button">Apply Filters</button>
+    </div>
+</form>
+
+        </section>
+
+        <section>
+            <h2>Available Sessions</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Movie</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Hall</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for session in sessions %}
+                        <tr>
+                            <td>{{ session.movie.title }}</td>
+                            <td>{{ session.date }}</td>
+                            <td>{{ session.time }}</td>
+                            <td>{{ session.hall }}</td>
+                            <td>
+    <div class="button-group">
+
+        <button type="button"
+                class="button movie-info-button"
+                data-movie-title="{{ session.movie.title }}"
+                data-movie-release="{{ session.movie.release_date }}"
+                data-movie-genre="{{ session.movie.genre }}"
+                data-movie-desc="{{ session.movie.description }}"
+                data-session-seats="{{ session.available_seats }}"
+                data-session-total-seats="{{ session.total_seats }}">
+            Movie Info
+        </button>
+        <a href="{{ url_for('seats', session_id=session.id) }}" class="button">Book Session</a>
+    </div>
+</td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2>Your Bookings</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Movie</th>
+                            <th>Session Date</th>
+                            <th>Time</th>
+                            <th>Hall</th>
+                            <th>Seat Number</th>
+                            <th>Booking Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in user_bookings %}
+                        <tr>
+                            <td>{{ booking.id }}</td>
+                            <td>{{ booking.session.movie.title }}</td>
+                            <td>{{ booking.session.date }}</td>
+                            <td>{{ booking.session.time }}</td>
+                            <td>{{ booking.session.hall }}</td>
+                            <td>{{ booking.seat_number }}</td>
+                            <td>{{ booking.booking_date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                            <td>
+                                <form action="{{ url_for('cancel_booking', booking_id=booking.id) }}" method="POST" style="display: inline;">
+                                    <button type="submit" class="button">Cancel</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+<!-- NEW CODE ADDED HERE: Modal for Movie Info -->
+<div id="movie-info-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#1a1a2e; padding:20px; border-radius:8px; box-shadow:0 0 15px rgba(255, 0, 200, 0.3); z-index:9999; width:300px; max-width:90%;">
+    <h3 id="movie-info-title" style="color:#ff00c8; margin-bottom:10px;">Movie Title</h3>
+    <p><strong>Release Date:</strong> <span id="movie-info-release"></span></p>
+    <p><strong>Genre:</strong> <span id="movie-info-genre"></span></p>
+    <p><strong>Description:</strong> <span id="movie-info-desc"></span></p>
+    <p><strong>Available Seats:</strong> <span id="movie-info-seats"></span></p>
+    <button id="close-movie-info" class="button" style="margin-top:10px;">Close</button>
+</div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.querySelector('.cursor');
+            const follower = document.querySelector('.cursor-follower');
+
+            document.addEventListener('mousemove', (e) => {
+                const { clientX: x, clientY: y } = e;
+                cursor.style.transform = `translate(${x}px, ${y}px)`;
+                follower.style.transform = `translate(${x}px, ${y}px)`;
+            });
+
+            document.querySelectorAll('button, a, input, select').forEach((elem) => {
+                elem.addEventListener('mouseenter', () => {
+                    follower.style.width = '60px';
+                    follower.style.height = '60px';
+                    follower.style.backgroundColor = 'rgba(255, 0, 200, 0.4)';
+                });
+
+                elem.addEventListener('mouseleave', () => {
+                    follower.style.width = '40px';
+                    follower.style.height = '40px';
+                    follower.style.backgroundColor = 'rgba(255, 0, 200, 0.2)';
+                });
+            });
+        });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const notifications = document.querySelectorAll('.notification');
+        notifications.forEach(notification => {
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => notification.remove(), 300); // Remove the element after fade-out
+            }, 5000); // Notification disappears after 5 seconds
+
+            // Close notification manually
+            const closeButton = notification.querySelector('.close-notification');
+            if (closeButton) {
+                closeButton.addEventListener('click', () => {
+                    notification.style.opacity = '0';
+                    setTimeout(() => notification.remove(), 300);
+                });
+            }
+        });
+    });
+</script>
+<script>
+const canvas = document.getElementById('backgroundCanvas');
+const ctx = canvas.getContext('2d');
+
+// Set canvas dimensions
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// Star colors: mostly white, some blue, fewer purple
+const colors = ['#FFFFFF', '#A6C8FF', '#DAB6FC'];
+
+// Stars array
+const stars = [];
+const starCount = 150; // Reduced number of stars
+
+// Class for a star
+class Star {
+    constructor() {
+        this.x = Math.random() * canvas.width; // Random x position
+        this.y = Math.random() * canvas.height; // Random y position
+        this.size = Math.random() * 1.5 + 0.5; // Star size between 0.5 and 2
+        this.color = colors[Math.floor(Math.random() * 10) < 7 ? 0 : Math.random() < 0.7 ? 1 : 2]; // Mostly white
+        this.velocityX = Math.random() * 0.2 + 0.05; // Slower diagonal motion
+        this.velocityY = Math.random() * 0.2 + 0.05; // Slower downward motion
+    }
+
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); // Circle as a star
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = this.color;
+        ctx.fill();
+    }
+
+    update() {
+        this.x += this.velocityX; // Move stars diagonally
+        this.y += this.velocityY;
+
+        // Wrap stars when they go out of bounds
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y > canvas.height) this.y = 0;
+
+        this.draw();
+    }
+}
+
+// Initialize stars
+function initStars() {
+    for (let i = 0; i < starCount; i++) {
+        stars.push(new Star());
+    }
+}
+
+// Animate stars
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+    stars.forEach((star) => star.update()); // Update stars
+    requestAnimationFrame(animate); // Loop animation
+}
+
+// Handle canvas resizing
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    stars.length = 0; // Clear current stars
+    initStars(); // Reinitialize stars
+});
+
+// Start animation
+initStars();
+animate();
+
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const infoButtons = document.querySelectorAll('.movie-info-button');
+    const modal = document.getElementById('movie-info-modal');
+    const titleEl = document.getElementById('movie-info-title');
+    const releaseEl = document.getElementById('movie-info-release');
+    const genreEl = document.getElementById('movie-info-genre');
+    const descEl = document.getElementById('movie-info-desc');
+    const seatsEl = document.getElementById('movie-info-seats');
+    const closeBtn = document.getElementById('close-movie-info');
+
+    infoButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Retrieve data from button attributes
+            const title = btn.getAttribute('data-movie-title');
+            const releaseDate = btn.getAttribute('data-movie-release');
+            const genre = btn.getAttribute('data-movie-genre');
+            const desc = btn.getAttribute('data-movie-desc');
+            const seats = btn.getAttribute('data-session-seats');
+            const totalSeats = btn.getAttribute('data-session-total-seats');
+
+            // Populate the modal
+            titleEl.textContent = title;
+            releaseEl.textContent = releaseDate;
+            genreEl.textContent = genre;
+            descEl.textContent = desc;
+            seatsEl.textContent = seats + ' from ' + totalSeats;
+
+            // Show the modal
+            modal.style.display = 'block';
+        });
+    });
+
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+});
+</script>
+
+
+</body>
+</html>

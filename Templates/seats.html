@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Seat</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #141e30 20%, #0f2027 80%);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            cursor: none; /* Hide default cursor */
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 900px;
+            background-color: rgba(15, 15, 34, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ff00c8;
+            text-shadow: 0 0 10px #ff00c8;
+        }
+
+        h2, h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #cccccc;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+        }
+
+        .legend-box.green {
+            background-color: green;
+        }
+
+        .legend-box.red {
+            background-color: red;
+        }
+
+        .legend-box.blue {
+            background-color: blue;
+        }
+
+        .seat-container {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .seat {
+            width: 40px;
+            height: 40px;
+            background-color: green;
+            border: 1px solid #444;
+            text-align: center;
+            line-height: 40px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .seat.booked {
+            background-color: red;
+            cursor: not-allowed;
+        }
+
+        .seat.selected {
+            background-color: blue;
+            transform: scale(1.1);
+        }
+
+        button {
+            padding: 15px 30px;
+            background-color: #ff00c8;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #e600b3;
+            transform: scale(1.05);
+        }
+
+        button:disabled {
+            background-color: #5a5a5a;
+            cursor: not-allowed;
+        }
+
+        /* Flash Messages */
+        .flash-messages {
+            margin-top: 20px;
+        }
+
+        .flash-messages p {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+        }
+
+        /* Custom Cursor */
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .cursor, .cursor-follower {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor {
+            width: 10px;
+            height: 10px;
+            background-color: #ff00c8;
+            box-shadow: 0 0 12px rgba(255, 0, 200, 0.8);
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 0, 200, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        @media (max-width: 768px) {
+            .seat-container {
+                grid-template-columns: repeat(8, 1fr);
+                gap: 8px;
+            }
+
+            .seat {
+                width: 35px;
+                height: 35px;
+                line-height: 35px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="custom-cursor">
+        <div class="cursor"></div>
+        <div class="cursor-follower"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Choose Your Seat</h1>
+        </header>
+        <main>
+            <h2>{{ session.movie.title }} - {{ session.date }} at {{ session.time }}</h2>
+            <h3>Hall: {{ session.hall }}</h3>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-box green"></div>
+                    Available
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box red"></div>
+                    Booked
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box blue"></div>
+                    Selected
+                </div>
+            </div>
+
+            <form method="POST" action="{{ url_for('book_ticket', session_id=session.id) }}">
+                <input type="hidden" name="seat_number" id="seat-number">
+                <div class="seat-container">
+                    {% for seat in range(1, session.total_seats + 1) %}
+                    <div
+                        class="seat {% if seat in taken_seats %}booked{% endif %}"
+                        data-seat="{{ seat }}"
+                        {% if seat not in taken_seats %} onclick="selectSeat(this)" {% endif %}>
+                        {{ seat }}
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" id="submit-btn" disabled>Confirm Seat</button>
+            </form>
+        </main>
+    </div>
+
+    <script>
+        const seats = document.querySelectorAll('.seat:not(.booked)');
+        const seatInput = document.getElementById('seat-number');
+        const submitBtn = document.getElementById('submit-btn');
+
+        function selectSeat(seat) {
+            seats.forEach(s => s.classList.remove('selected'));
+            seat.classList.add('selected');
+            seatInput.value = seat.dataset.seat;
+            submitBtn.disabled = false;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.querySelector('.cursor');
+            const follower = document.querySelector('.cursor-follower');
+
+            document.addEventListener('mousemove', (e) => {
+                const { clientX: x, clientY: y } = e;
+                cursor.style.transform = `translate(${x}px, ${y}px)`;
+                follower.style.transform = `translate(${x}px, ${y}px)`;
+            });
+
+            document.querySelectorAll('button, .seat').forEach((elem) => {
+                elem.addEventListener('mouseenter', () => {
+                    follower.style.width = '60px';
+                    follower.style.height = '60px';
+                    follower.style.backgroundColor = 'rgba(255, 0, 200, 0.4)';
+                });
+
+                elem.addEventListener('mouseleave', () => {
+                    follower.style.width = '40px';
+                    follower.style.height = '40px';
+                    follower.style.backgroundColor = 'rgba(255, 0, 200, 0.2)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
