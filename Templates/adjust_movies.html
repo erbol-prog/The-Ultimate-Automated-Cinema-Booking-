@@ -1,425 +1,451 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Adjust Movies</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 
-        /* General Styles */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(to bottom, #141e30 20%, #0f2027 80%);
-            color: #fff;
-            overflow-y: auto;
-        }
+      /* General Styles */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(to bottom, #141e30 20%, #0f2027 80%);
+        color: #fff;
+        overflow-y: auto;
+      }
 
-        header {
-            background: rgba(15, 15, 34, 0.9);
-            padding: 20px;
-            text-align: center;
-            border-bottom: 2px solid #ff00c8;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
+      header {
+        background: rgba(15, 15, 34, 0.9);
+        padding: 20px;
+        text-align: center;
+        border-bottom: 2px solid #ff00c8;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      }
 
-        header h1 {
-            font-size: 2rem;
-            color: #ff00c8;
-            text-shadow: 0 0 8px #ff00c8;
-            margin: 0;
-        }
+      header h1 {
+        font-size: 2rem;
+        color: #ff00c8;
+        text-shadow: 0 0 8px #ff00c8;
+        margin: 0;
+      }
 
-        header nav {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
+      header nav {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
 
-        header nav a {
-            text-decoration: none;
-            color: #ff00c8;
-            padding: 8px 16px;
-            background: rgba(255, 0, 200, 0.2);
-            border-radius: 5px;
-            transition: background 0.3s ease, transform 0.3s ease;
-            font-weight: 500;
-            margin: 5px;
-        }
+      header nav a {
+        text-decoration: none;
+        color: #ff00c8;
+        padding: 8px 16px;
+        background: rgba(255, 0, 200, 0.2);
+        border-radius: 5px;
+        transition: background 0.3s ease, transform 0.3s ease;
+        font-weight: 500;
+        margin: 5px;
+      }
 
-        header nav a:hover {
-            background: rgba(255, 0, 200, 0.4);
-            transform: scale(1.05);
-        }
+      header nav a:hover {
+        background: rgba(255, 0, 200, 0.4);
+        transform: scale(1.05);
+      }
 
-        main {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+      main {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
 
-        section {
-            margin-bottom: 40px;
-        }
+      section {
+        margin-bottom: 40px;
+      }
 
-        section h2 {
-            font-size: 1.8rem;
-            color: #ff00c8;
-            text-shadow: 0 0 8px #ff00c8;
-            margin-bottom: 20px;
-            font-weight: 700;
-            text-align: center;
-        }
+      section h2 {
+        font-size: 1.8rem;
+        color: #ff00c8;
+        text-shadow: 0 0 8px #ff00c8;
+        margin-bottom: 20px;
+        font-weight: 700;
+        text-align: center;
+      }
 
-        .form-container {
-    width: 90%; /* Adjust overall width (smaller than before) */
-    max-width: 320px; /* Reduce maximum width */
-    padding: 15px; /* Reduce padding around the form */
-    border-radius: 8px; /* Keep rounded corners slightly smaller */
-    background-color: rgba(15, 15, 34, 0.95);
-    margin: 0 auto; /* Center the form */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); /* Slightly reduce shadow intensity */
-}
+      .form-container {
+        width: 90%; /* Adjust overall width (smaller than before) */
+        max-width: 320px; /* Reduce maximum width */
+        padding: 15px; /* Reduce padding around the form */
+        border-radius: 8px; /* Keep rounded corners slightly smaller */
+        background-color: rgba(15, 15, 34, 0.95);
+        margin: 0 auto; /* Center the form */
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); /* Slightly reduce shadow intensity */
+      }
 
-        #custom-cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 1000;
-        }
+      #custom-cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 1000;
+      }
 
-        .cursor,
-        .cursor-follower {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-        }
+      .cursor,
+      .cursor-follower {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+      }
 
-        .cursor {
-            width: 10px;
-            height: 10px;
-            background-color: #ff00c8;
-            box-shadow: 0 0 12px rgba(255, 0, 200, 0.8);
-        }
+      .cursor {
+        width: 10px;
+        height: 10px;
+        background-color: #ff00c8;
+        box-shadow: 0 0 12px rgba(255, 0, 200, 0.8);
+      }
 
-        .cursor-follower {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 0, 200, 0.2);
-            transition: all 0.2s ease;
-        }
-.button.delete {
-    background-color: #ff00c8; /* Neon pink color */
-    color: #fff; /* White text */
-    border: none;
-    border-radius: 8px; /* Rounded corners */
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    cursor: pointer;
-    box-shadow: 0 0 12px rgba(255, 0, 200, 0.8), 0 4px 6px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease-in-out;
-}
+      .cursor-follower {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 0, 200, 0.2);
+        transition: all 0.2s ease;
+      }
+      .button.delete {
+        background-color: #ff00c8; /* Neon pink color */
+        color: #fff; /* White text */
+        border: none;
+        border-radius: 8px; /* Rounded corners */
+        padding: 10px 20px;
+        font-size: 1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 0 0 12px rgba(255, 0, 200, 0.8),
+          0 4px 6px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease-in-out;
+      }
 
-.button.delete:hover {
-    background-color: #e600b8; /* Slightly darker neon pink */
-    transform: scale(1.1); /* Slightly enlarge button on hover */
-    box-shadow: 0 0 20px rgba(255, 0, 200, 1), 0 6px 8px rgba(0, 0, 0, 0.3);
-}
+      .button.delete:hover {
+        background-color: #e600b8; /* Slightly darker neon pink */
+        transform: scale(1.1); /* Slightly enlarge button on hover */
+        box-shadow: 0 0 20px rgba(255, 0, 200, 1), 0 6px 8px rgba(0, 0, 0, 0.3);
+      }
 
-.button.delete:active {
-    transform: scale(0.98); /* Slight shrink for a click effect */
-    box-shadow: 0 0 10px rgba(255, 0, 200, 0.7), 0 2px 4px rgba(0, 0, 0, 0.2);
-}
+      .button.delete:active {
+        transform: scale(0.98); /* Slight shrink for a click effect */
+        box-shadow: 0 0 10px rgba(255, 0, 200, 0.7),
+          0 2px 4px rgba(0, 0, 0, 0.2);
+      }
 
+      .form-container label {
+        font-weight: 500;
+        margin-bottom: 5px;
+        display: block;
+      }
 
-        .form-container label {
-            font-weight: 500;
-            margin-bottom: 5px;
-            display: block;
-        }
+      .form-container input,
+      .form-container select,
+      .form-container textarea {
+        width: calc(100% - 40px);
+        max-width: 300px;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        border: 1px solid #444;
+        border-radius: 5px;
+        background-color: #1a1a2e; /* New background color */
+        color: #ff00c8; /* New text color */
+        margin-bottom: 15px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
 
-.form-container input,
-.form-container select,
-.form-container textarea {
-    width: calc(100% - 40px);
-    max-width: 300px;
-    padding: 8px 12px;
-    font-size: 0.9rem;
-    border: 1px solid #444;
-    border-radius: 5px;
-    background-color: #1a1a2e; /* New background color */
-    color: #ff00c8; /* New text color */
-    margin-bottom: 15px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
+      .form-container input:focus,
+      .form-container select:focus,
+      .form-container textarea:focus {
+        background-color: #333; /* Darker background on focus */
+        color: #fff; /* Change text color on focus */
+        border-color: #ff00c8; /* Retain glowing border */
+        outline: none;
+        box-shadow: 0 0 8px rgba(255, 0, 200, 0.7);
+      }
 
-.form-container input:focus,
-.form-container select:focus,
-.form-container textarea:focus {
-    background-color: #333; /* Darker background on focus */
-    color: #fff; /* Change text color on focus */
-    border-color: #ff00c8; /* Retain glowing border */
-    outline: none;
-    box-shadow: 0 0 8px rgba(255, 0, 200, 0.7);
-}
+      .form-container input:focus,
+      .form-container select:focus,
+      .form-container textarea:focus {
+        border-color: #ff00c8;
+        outline: none;
+        box-shadow: 0 0 8px rgba(255, 0, 200, 0.7);
+      }
 
-        .form-container input:focus,
-        .form-container select:focus,
-        .form-container textarea:focus {
-            border-color: #ff00c8;
-            outline: none;
-            box-shadow: 0 0 8px rgba(255, 0, 200, 0.7);
-        }
+      .form-container button {
+        width: calc(100% - 20px); /* Match the width of input fields */
+        max-width: 319px; /* Same as input fields */
+        padding: 8px 12px; /* Match padding */
+        font-size: 0.9rem; /* Match font size */
+        background-color: #ff00c8;
+        font-weight: 600;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-transform: uppercase;
+        transition: all 0.3s ease-in-out;
+      }
 
-.form-container button {
-    width: calc(100% - 20px); /* Match the width of input fields */
-    max-width: 319px; /* Same as input fields */
-    padding: 8px 12px; /* Match padding */
-    font-size: 0.9rem; /* Match font size */
-    background-color: #ff00c8;
-    font-weight: 600;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.3s ease-in-out;
-}
+      .form-container button:hover {
+        background-color: #e600b8;
+        transform: scale(1.03);
+      }
 
-.form-container button:hover {
-    background-color: #e600b8;
-    transform: scale(1.03);
-}
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        font-size: 0.9rem;
+        word-wrap: break-word;
+      }
 
+      table th,
+      table td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #444;
+      }
+
+      table th {
+        background-color: #1a1a2e;
+        color: #ff00c8;
+        font-weight: 600;
+      }
+
+      table tr:nth-child(even) {
+        background-color: rgba(15, 15, 34, 0.9);
+      }
+
+      table tr:hover {
+        background-color: rgba(255, 0, 200, 0.1);
+      }
+
+      @media (max-width: 768px) {
         table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            font-size: 0.9rem;
-            word-wrap: break-word;
+          font-size: 0.8rem;
+          display: block;
+          overflow-x: auto;
+          white-space: nowrap;
         }
 
         table th,
         table td {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #444;
+          padding: 8px;
         }
 
-        table th {
-            background-color: #1a1a2e;
-            color: #ff00c8;
-            font-weight: 600;
+        .form-container input,
+        .form-container select,
+        .form-container textarea,
+        .form-container button {
+          max-width: 100%;
         }
+      }
 
-        table tr:nth-child(even) {
-            background-color: rgba(15, 15, 34, 0.9);
+      #notifications {
+        margin-bottom: 20px;
+      }
+
+      .notification {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        font-size: 1rem;
+        color: #fff;
+        animation: fadeIn 0.5s;
+        transition: opacity 0.3s ease-out;
+      }
+
+      .notification.success {
+        background-color: #28a745; /* Green for success */
+      }
+
+      .notification.danger {
+        background-color: #dc3545; /* Red for danger */
+      }
+
+      .notification.info {
+        background-color: #17a2b8; /* Blue for informational */
+      }
+
+      .notification.warning {
+        background-color: #ffc107; /* Yellow for warnings */
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
         }
-
-        table tr:hover {
-            background-color: rgba(255, 0, 200, 0.1);
+        to {
+          opacity: 1;
         }
-
-        @media (max-width: 768px) {
-            table {
-                font-size: 0.8rem;
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-            }
-
-            table th,
-            table td {
-                padding: 8px;
-            }
-
-            .form-container input,
-            .form-container select,
-            .form-container textarea,
-            .form-container button {
-                max-width: 100%;
-            }
-        }
-
-        #notifications {
-    margin-bottom: 20px;
-}
-
-.notification {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    font-size: 1rem;
-    color: #fff;
-    animation: fadeIn 0.5s;
-    transition: opacity 0.3s ease-out;
-}
-
-.notification.success {
-    background-color: #28a745; /* Green for success */
-}
-
-.notification.danger {
-    background-color: #dc3545; /* Red for danger */
-}
-
-.notification.info {
-    background-color: #17a2b8; /* Blue for informational */
-}
-
-.notification.warning {
-    background-color: #ffc107; /* Yellow for warnings */
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div id="custom-cursor">
-        <div class="cursor"></div>
-        <div class="cursor-follower"></div>
+      <div class="cursor"></div>
+      <div class="cursor-follower"></div>
     </div>
     <header>
-        <h1>Adjust Movies</h1>
-        <nav>
-            <a href="{{ url_for('super_admin_panel') }}">Back to Super Admin Panel</a>
-            <a href="{{ url_for('auth.logout') }}">Logout</a>
-        </nav>
+      <h1>Adjust Movies</h1>
+      <nav>
+        <a href="{{ url_for('super_admin_panel') }}"
+          >Back to Super Admin Panel</a
+        >
+        <a href="{{ url_for('auth.logout') }}">Logout</a>
+      </nav>
     </header>
 
     <main>
-        {% with messages = get_flashed_messages(with_categories=True) %}
-        {% if messages %}
-            <div id="notifications">
-                {% for category, message in messages %}
-                    <div class="notification {{ category }}">{{ message }}</div>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
-        <section>
-            <h2>Add a New Movie</h2>
-            <div class="form-container">
-                <form action="{{ url_for('adjust_movies') }}" method="POST">
-                    <input type="hidden" name="action" value="add">
+      {% with messages = get_flashed_messages(with_categories=True) %} {% if
+      messages %}
+      <div id="notifications">
+        {% for category, message in messages %}
+        <div class="notification {{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %} {% endwith %}
+      <section>
+        <h2>Add a New Movie</h2>
+        <div class="form-container">
+          <form action="{{ url_for('adjust_movies') }}" method="POST">
+            <input type="hidden" name="action" value="add" />
 
-                    <label for="title">Title:</label>
-                    <input type="text" name="title" id="title" placeholder="Enter movie title" required>
+            <label for="title">Title:</label>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              placeholder="Enter movie title"
+              required
+            />
 
-                    <label for="release_date">Release Date:</label>
-                    <input type="date" name="release_date" id="release_date" required>
+            <label for="release_date">Release Date:</label>
+            <input type="date" name="release_date" id="release_date" required />
 
-                    <label for="genre">Genre:</label>
-                    <input type="text" name="genre" id="genre" placeholder="Enter movie genre" required>
+            <label for="genre">Genre:</label>
+            <input
+              type="text"
+              name="genre"
+              id="genre"
+              placeholder="Enter movie genre"
+              required
+            />
 
-                    <label for="description">Description:</label>
-                    <textarea name="description" id="description" rows="3" placeholder="Enter movie description" required></textarea>
+            <label for="description">Description:</label>
+            <textarea
+              name="description"
+              id="description"
+              rows="3"
+              placeholder="Enter movie description"
+              required
+            ></textarea>
 
-                    <button type="submit">Add Movie</button>
+            <button type="submit">Add Movie</button>
+          </form>
+        </div>
+      </section>
+
+      <section>
+        <h2>Existing Movies</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Release Date</th>
+              <th>Genre</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for movie in movies %}
+            <tr>
+              <td>{{ movie.title }}</td>
+              <td>{{ movie.release_date }}</td>
+              <td>{{ movie.genre }}</td>
+              <td>{{ movie.description }}</td>
+              <td>
+                <form
+                  action="{{ url_for('adjust_movies') }}"
+                  method="POST"
+                  style="display: inline"
+                >
+                  <input type="hidden" name="action" value="delete" />
+                  <input type="hidden" name="movie_id" value="{{ movie.id }}" />
+                  <button type="submit" class="button delete">Delete</button>
                 </form>
-            </div>
-        </section>
-
-        <section>
-            <h2>Existing Movies</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Release Date</th>
-                        <th>Genre</th>
-                        <th>Description</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for movie in movies %}
-                    <tr>
-                        <td>{{ movie.title }}</td>
-                        <td>{{ movie.release_date }}</td>
-                        <td>{{ movie.genre }}</td>
-                        <td>{{ movie.description }}</td>
-                        <td>
-                            <form action="{{ url_for('adjust_movies') }}" method="POST" style="display:inline;">
-                                <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="movie_id" value="{{ movie.id }}">
-                                <button type="submit" class="button delete">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </section>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
     </main>
 
-           <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const cursor = document.querySelector('.cursor');
-            const follower = document.querySelector('.cursor-follower');
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const cursor = document.querySelector(".cursor");
+        const follower = document.querySelector(".cursor-follower");
 
-            document.addEventListener('mousemove', (e) => {
-                const { clientX: x, clientY: y } = e;
-                cursor.style.transform = `translate(${x}px, ${y}px)`;
-                follower.style.transform = `translate(${x}px, ${y}px)`;
-            });
-
-            document.querySelectorAll('button, a, input, select').forEach((elem) => {
-                elem.addEventListener('mouseenter', () => {
-                    follower.style.width = '60px';
-                    follower.style.height = '60px';
-                    follower.style.backgroundColor = 'rgba(255, 0, 200, 0.4)';
-                });
-
-                elem.addEventListener('mouseleave', () => {
-                    follower.style.width = '40px';
-                    follower.style.height = '40px';
-                    follower.style.backgroundColor = 'rgba(255, 0, 200, 0.2)';
-                });
-            });
-
-            // Make the default cursor invisible
-            document.body.style.cursor = 'none';
+        document.addEventListener("mousemove", (e) => {
+          const { clientX: x, clientY: y } = e;
+          cursor.style.transform = `translate(${x}px, ${y}px)`;
+          follower.style.transform = `translate(${x}px, ${y}px)`;
         });
 
-        // Validation for release date
-        document.getElementById('release_date').addEventListener('input', (event) => {
-            const date = new Date(event.target.value);
-            const today = new Date();
+        document
+          .querySelectorAll("button, a, input, select")
+          .forEach((elem) => {
+            elem.addEventListener("mouseenter", () => {
+              follower.style.width = "60px";
+              follower.style.height = "60px";
+              follower.style.backgroundColor = "rgba(255, 0, 200, 0.4)";
+            });
 
-            if (date > today) {
-                alert('Please select a proper date ! ');
-                event.target.value = '';
-            }
+            elem.addEventListener("mouseleave", () => {
+              follower.style.width = "40px";
+              follower.style.height = "40px";
+              follower.style.backgroundColor = "rgba(255, 0, 200, 0.2)";
+            });
+          });
+
+        // Make the default cursor invisible
+        document.body.style.cursor = "none";
+      });
+
+      // Validation for release date
+      document
+        .getElementById("release_date")
+        .addEventListener("input", (event) => {
+          const date = new Date(event.target.value);
+          const today = new Date();
+
+          if (date > today) {
+            alert("Please select a proper date ! ");
+            event.target.value = "";
+          }
         });
     </script>
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const notifications = document.querySelectorAll('.notification');
-        notifications.forEach(notification => {
-            // Auto-dismiss after 5 seconds
-            setTimeout(() => {
-                notification.style.opacity = '0';
-                setTimeout(() => notification.remove(), 300);
-            }, 5000);
+      document.addEventListener("DOMContentLoaded", () => {
+        const notifications = document.querySelectorAll(".notification");
+        notifications.forEach((notification) => {
+          // Auto-dismiss after 5 seconds
+          setTimeout(() => {
+            notification.style.opacity = "0";
+            setTimeout(() => notification.remove(), 300);
+          }, 5000);
         });
-    });
-</script>
-
-</body>
+      });
+    </script>
+  </body>
 </html>

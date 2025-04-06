@@ -1,239 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Booking History</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
-        /* General Styles */
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(to bottom, #141e30 20%, #0f2027 80%);
-            color: #fff;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            box-sizing: border-box;
-            cursor: none; /* Hide default cursor */
-        }
+      /* General Styles */
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(to bottom, #141e30 20%, #0f2027 80%);
+        color: #fff;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        box-sizing: border-box;
+        cursor: none; /* Hide default cursor */
+      }
 
-        .container {
-            text-align: center;
-            width: 100%;
-            max-width: 900px;
-            background-color: rgba(15, 15, 34, 0.95);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
-        }
+      .container {
+        text-align: center;
+        width: 100%;
+        max-width: 900px;
+        background-color: rgba(15, 15, 34, 0.95);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+      }
 
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            color: #ff00c8;
-            text-shadow: 0 0 10px #ff00c8;
-        }
+      header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        color: #ff00c8;
+        text-shadow: 0 0 10px #ff00c8;
+      }
 
-        header h2 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            color: #cccccc;
-        }
+      header h2 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        color: #cccccc;
+      }
 
-        header nav a {
-            text-decoration: none;
-            color: #ff00c8;
-            padding: 10px 20px;
-            background: rgba(255, 0, 200, 0.2);
-            border-radius: 5px;
-            transition: background 0.3s ease, transform 0.3s ease;
-            font-weight: 500;
-        }
+      header nav a {
+        text-decoration: none;
+        color: #ff00c8;
+        padding: 10px 20px;
+        background: rgba(255, 0, 200, 0.2);
+        border-radius: 5px;
+        transition: background 0.3s ease, transform 0.3s ease;
+        font-weight: 500;
+      }
 
-        header nav a:hover {
-            background: rgba(255, 0, 200, 0.4);
-            transform: scale(1.05);
-        }
+      header nav a:hover {
+        background: rgba(255, 0, 200, 0.4);
+        transform: scale(1.05);
+      }
 
-        .table-container {
-            overflow-x: auto;
-        }
+      .table-container {
+        overflow-x: auto;
+      }
 
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            overflow: hidden;
-        }
+      table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+        border-radius: 10px;
+        overflow: hidden;
+      }
 
-        table th, table td {
-            padding: 15px;
-            text-align: center;
-            border: 1px solid #444;
-        }
+      table th,
+      table td {
+        padding: 15px;
+        text-align: center;
+        border: 1px solid #444;
+      }
 
-        table th {
-            background-color: #1e1e2f;
-            color: #ff00c8;
-            font-size: 1.1rem;
-        }
+      table th {
+        background-color: #1e1e2f;
+        color: #ff00c8;
+        font-size: 1.1rem;
+      }
 
-        table tr:nth-child(even) {
-            background-color: rgba(30, 30, 47, 0.9);
-        }
+      table tr:nth-child(even) {
+        background-color: rgba(30, 30, 47, 0.9);
+      }
 
-        table tr:hover {
-            background-color: rgba(255, 0, 200, 0.1);
-        }
+      table tr:hover {
+        background-color: rgba(255, 0, 200, 0.1);
+      }
 
-        p {
-            font-size: 1.2rem;
-            color: #cccccc;
-            margin-top: 20px;
-        }
+      p {
+        font-size: 1.2rem;
+        color: #cccccc;
+        margin-top: 20px;
+      }
 
-        /* Custom Cursor */
-        #custom-cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 1000;
-        }
+      /* Custom Cursor */
+      #custom-cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 1000;
+      }
 
-        .cursor, .cursor-follower {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-        }
+      .cursor,
+      .cursor-follower {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+      }
 
-        .cursor {
-            width: 10px;
-            height: 10px;
-            background-color: #ff00c8;
-            box-shadow: 0 0 12px rgba(255, 0, 200, 0.8);
-        }
+      .cursor {
+        width: 10px;
+        height: 10px;
+        background-color: #ff00c8;
+        box-shadow: 0 0 12px rgba(255, 0, 200, 0.8);
+      }
 
-        .cursor-follower {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 0, 200, 0.2);
-            transition: all 0.2s ease;
-        }
+      .cursor-follower {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 0, 200, 0.2);
+        transition: all 0.2s ease;
+      }
 
-        .button {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #fff;
-    background: #ff00c8;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background 0.3s ease, transform 0.3s ease;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow for better visibility */
-}
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 1rem;
+        font-weight: bold;
+        color: #fff;
+        background: #ff00c8;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background 0.3s ease, transform 0.3s ease;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow for better visibility */
+      }
 
-.button:hover {
-    background: #e600b8;
-    transform: scale(1.03);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
-}
+      .button:hover {
+        background: #e600b8;
+        transform: scale(1.03);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+      }
 
-.button:active {
-    background: #d400a5;
-    transform: scale(0.97); /* Slight press effect */
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
-}
-
-
+      .button:active {
+        background: #d400a5;
+        transform: scale(0.97); /* Slight press effect */
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div id="custom-cursor">
-        <div class="cursor"></div>
-        <div class="cursor-follower"></div>
+      <div class="cursor"></div>
+      <div class="cursor-follower"></div>
     </div>
 
     <div class="container">
-        <header>
-    <h1>Booking History for Session</h1>
-    <h2>{{ session.movie.title }} - {{ session.date }} - {{ session.time }} - Hall {{ session.hall }}</h2>
+      <header>
+        <h1>Booking History for Session</h1>
+        <h2>
+          {{ session.movie.title }} - {{ session.date }} - {{ session.time }} -
+          Hall {{ session.hall }}
+        </h2>
 
-    <nav>
-        <!-- Add a Back button to return to the previous page -->
-        <a href="javascript:history.back()" class="button">Back</a>
-    </nav>
-</header>
+        <nav>
+          <!-- Add a Back button to return to the previous page -->
+          <a href="javascript:history.back()" class="button">Back</a>
+        </nav>
+      </header>
 
-
-        <main>
-            <section>
-                {% if bookings %}
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Seat Number</th>
-                                <th>Booking Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-    {% for booking in bookings %}
-    <tr>
-        <td>{{ booking.user.username }}</td>
-        <td>{{ booking.user.email }}</td>
-        <td>{{ booking.seat_number }}</td>
-        <td>{{ booking.booking_date.strftime('%Y-%m-%d %H:%M') }}</td>
-    </tr>
-    {% endfor %}
-</tbody>
-
-                    </table>
-                </div>
-                {% else %}
-                <p>No bookings found for this session.</p>
-                {% endif %}
-            </section>
-        </main>
+      <main>
+        <section>
+          {% if bookings %}
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Seat Number</th>
+                  <th>Booking Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for booking in bookings %}
+                <tr>
+                  <td>{{ booking.user.username }}</td>
+                  <td>{{ booking.user.email }}</td>
+                  <td>{{ booking.seat_number }}</td>
+                  <td>{{ booking.booking_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% else %}
+          <p>No bookings found for this session.</p>
+          {% endif %}
+        </section>
+      </main>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const cursor = document.querySelector('.cursor');
-            const follower = document.querySelector('.cursor-follower');
+      document.addEventListener("DOMContentLoaded", () => {
+        const cursor = document.querySelector(".cursor");
+        const follower = document.querySelector(".cursor-follower");
 
-            document.addEventListener('mousemove', (e) => {
-                const { clientX: x, clientY: y } = e;
-                cursor.style.transform = `translate(${x}px, ${y}px)`;
-                follower.style.transform = `translate(${x}px, ${y}px)`;
-            });
-
-            document.querySelectorAll('a, table, td, th').forEach((elem) => {
-                elem.addEventListener('mouseenter', () => {
-                    follower.style.width = '60px';
-                    follower.style.height = '60px';
-                    follower.style.backgroundColor = 'rgba(255, 0, 200, 0.4)';
-                });
-
-                elem.addEventListener('mouseleave', () => {
-                    follower.style.width = '40px';
-                    follower.style.height = '40px';
-                    follower.style.backgroundColor = 'rgba(255, 0, 200, 0.2)';
-                });
-            });
+        document.addEventListener("mousemove", (e) => {
+          const { clientX: x, clientY: y } = e;
+          cursor.style.transform = `translate(${x}px, ${y}px)`;
+          follower.style.transform = `translate(${x}px, ${y}px)`;
         });
+
+        document.querySelectorAll("a, table, td, th").forEach((elem) => {
+          elem.addEventListener("mouseenter", () => {
+            follower.style.width = "60px";
+            follower.style.height = "60px";
+            follower.style.backgroundColor = "rgba(255, 0, 200, 0.4)";
+          });
+
+          elem.addEventListener("mouseleave", () => {
+            follower.style.width = "40px";
+            follower.style.height = "40px";
+            follower.style.backgroundColor = "rgba(255, 0, 200, 0.2)";
+          });
+        });
+      });
     </script>
-</body>
+  </body>
 </html>

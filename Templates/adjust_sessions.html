@@ -1,459 +1,487 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Adjust Sessions</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
-        /* General Styles */
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to bottom, #141e30 20%, #0f2027 80%);
-            color: #fff;
-            cursor: none; /* Hide default cursor */
-        }
+      /* General Styles */
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to bottom, #141e30 20%, #0f2027 80%);
+        color: #fff;
+        cursor: none; /* Hide default cursor */
+      }
 
-        header {
-            background: rgba(15, 15, 34, 0.9);
-            padding: 20px;
-            text-align: center;
-            border-bottom: 2px solid #ff00c8;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
+      header {
+        background: rgba(15, 15, 34, 0.9);
+        padding: 20px;
+        text-align: center;
+        border-bottom: 2px solid #ff00c8;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      }
 
-        header h1 {
-            font-size: 2rem;
-            color: #ff00c8;
-            text-shadow: 0 0 8px #ff00c8;
-            margin: 0;
-            font-weight: 700;
-        }
+      header h1 {
+        font-size: 2rem;
+        color: #ff00c8;
+        text-shadow: 0 0 8px #ff00c8;
+        margin: 0;
+        font-weight: 700;
+      }
 
-        header nav a {
-            text-decoration: none;
-            color: #ff00c8;
-            padding: 8px 16px;
-            background: rgba(255, 0, 200, 0.2);
-            border-radius: 5px;
-            transition: background 0.3s ease, transform 0.3s ease;
-            font-weight: 500;
-            display: inline-block;
-            margin: 5px;
-        }
+      header nav a {
+        text-decoration: none;
+        color: #ff00c8;
+        padding: 8px 16px;
+        background: rgba(255, 0, 200, 0.2);
+        border-radius: 5px;
+        transition: background 0.3s ease, transform 0.3s ease;
+        font-weight: 500;
+        display: inline-block;
+        margin: 5px;
+      }
 
-        header nav a:hover {
-            background: rgba(255, 0, 200, 0.4);
-            transform: scale(1.05);
-        }
+      header nav a:hover {
+        background: rgba(255, 0, 200, 0.4);
+        transform: scale(1.05);
+      }
 
-        main {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+      main {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
 
-        section {
-            margin-bottom: 40px;
-        }
+      section {
+        margin-bottom: 40px;
+      }
 
-        section h2 {
-            font-size: 1.8rem;
-            color: #ff00c8;
-            text-shadow: 0 0 8px #ff00c8;
-            margin-bottom: 20px;
-            font-weight: 700;
-            text-align: center;
-        }
+      section h2 {
+        font-size: 1.8rem;
+        color: #ff00c8;
+        text-shadow: 0 0 8px #ff00c8;
+        margin-bottom: 20px;
+        font-weight: 700;
+        text-align: center;
+      }
 
-        .form-container {
-    width: 85%; /* Reduced width */
-    max-width: 350px; /* Reduced max width to make the form smaller */
-    padding: 15px; /* Reduced padding for a more compact design */
-    border-radius: 8px; /* Slightly smaller border radius */
-    background-color: rgba(20, 20, 40, 0.9);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); /* Slightly lighter shadow */
-    margin: 20px auto; /* Keep centered but with smaller spacing */
-}
+      .form-container {
+        width: 85%; /* Reduced width */
+        max-width: 350px; /* Reduced max width to make the form smaller */
+        padding: 15px; /* Reduced padding for a more compact design */
+        border-radius: 8px; /* Slightly smaller border radius */
+        background-color: rgba(20, 20, 40, 0.9);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); /* Slightly lighter shadow */
+        margin: 20px auto; /* Keep centered but with smaller spacing */
+      }
 
+      .form-container label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+      }
+      .form-container select,
+      .form-container input,
+      .form-container button {
+        width: calc(100% - 20px); /* Slightly smaller width */
+        max-width: 344px; /* Align with container */
+        padding: 8px 12px; /* Compact padding */
+        font-size: 0.85rem; /* Slightly smaller text */
+        border: 1px solid #444; /* Subtle border */
+        border-radius: 5px; /* Rounded corners */
+        background-color: #1a1a2e; /* Dark background */
+        color: white; /* White text */
+        box-sizing: border-box;
+        margin-bottom: 15px; /* Uniform spacing */
+        transition: all 0.3s ease;
+      }
 
+      .form-container input:focus,
+      .form-container select:focus {
+        background-color: #2a2a3e; /* Slightly lighter background on focus */
+        border-color: #ff00c8; /* Highlight border */
+        outline: none;
+        box-shadow: 0 0 10px rgba(255, 0, 200, 0.7); /* Glow effect */
+      }
+
+      .form-container button {
+        background-color: #ff00c8; /* Neon pink */
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(255, 0, 200, 0.5);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+
+      .form-container button:hover {
+        background-color: #e600b8; /* Darker pink */
+        transform: scale(1.05); /* Slight hover enlargement */
+      }
+      .button.delete {
+        background-color: #ff00c8; /* Neon pink background */
+        color: white; /* White text */
+        font-size: 0.9rem; /* Consistent font size */
+        padding: 8px 12px; /* Compact size */
+        border: none;
+        border-radius: 5px; /* Smooth rounded corners */
+        cursor: pointer;
+        font-weight: 600; /* Bold text */
+        text-transform: uppercase;
+        box-shadow: 0 0 10px rgba(255, 0, 200, 0.7),
+          0 4px 6px rgba(0, 0, 0, 0.2); /* Glow and shadow effect */
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+
+      .button.delete:hover {
+        background-color: #e600b8; /* Slightly darker pink on hover */
+        transform: scale(1.05); /* Slight hover enlargement */
+        box-shadow: 0 0 20px rgba(255, 0, 200, 1), 0 6px 8px rgba(0, 0, 0, 0.3); /* Brighter glow */
+      }
+
+      .button.delete:active {
+        transform: scale(0.98); /* Slight shrink effect when clicked */
+        box-shadow: 0 0 10px rgba(255, 0, 200, 0.5),
+          0 2px 4px rgba(0, 0, 0, 0.2); /* Dim glow */
+      }
+
+      .button:active {
+        transform: scale(0.98); /* Shrink on click */
+        box-shadow: 0 0 10px rgba(255, 0, 200, 0.5),
+          0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .table-container {
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        font-size: 0.9rem;
+      }
+
+      table th,
+      table td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #444;
+      }
+
+      table th {
+        background-color: #1a1a2e;
+        color: #ff00c8;
+        font-weight: 600;
+      }
+
+      table tr:nth-child(even) {
+        background-color: rgba(15, 15, 34, 0.9);
+      }
+
+      table tr:hover {
+        background-color: rgba(255, 0, 200, 0.1);
+      }
+
+      /* Custom Cursor Styles */
+      #custom-cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 1000;
+      }
+
+      .cursor,
+      .cursor-follower {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+      }
+
+      .cursor {
+        width: 10px;
+        height: 10px;
+        background-color: #ff00c8;
+        box-shadow: 0 0 12px rgba(255, 0, 200, 0.8);
+      }
+
+      .cursor-follower {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 0, 200, 0.2);
+        transition: all 0.2s ease;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
         .form-container label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-.form-container select,
-.form-container input,
-.form-container button {
-    width: calc(100% - 20px); /* Slightly smaller width */
-    max-width: 344px; /* Align with container */
-    padding: 8px 12px; /* Compact padding */
-    font-size: 0.85rem; /* Slightly smaller text */
-    border: 1px solid #444; /* Subtle border */
-    border-radius: 5px; /* Rounded corners */
-    background-color: #1a1a2e; /* Dark background */
-    color: white; /* White text */
-    box-sizing: border-box;
-    margin-bottom: 15px; /* Uniform spacing */
-    transition: all 0.3s ease;
-}
-
-.form-container input:focus,
-.form-container select:focus {
-    background-color: #2a2a3e; /* Slightly lighter background on focus */
-    border-color: #ff00c8; /* Highlight border */
-    outline: none;
-    box-shadow: 0 0 10px rgba(255, 0, 200, 0.7); /* Glow effect */
-}
-
-.form-container button {
-    background-color: #ff00c8; /* Neon pink */
-    font-weight: 600;
-    text-transform: uppercase;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(255, 0, 200, 0.5);
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.form-container button:hover {
-    background-color: #e600b8; /* Darker pink */
-    transform: scale(1.05); /* Slight hover enlargement */
-}
-.button.delete {
-    background-color: #ff00c8; /* Neon pink background */
-    color: white; /* White text */
-    font-size: 0.9rem; /* Consistent font size */
-    padding: 8px 12px; /* Compact size */
-    border: none;
-    border-radius: 5px; /* Smooth rounded corners */
-    cursor: pointer;
-    font-weight: 600; /* Bold text */
-    text-transform: uppercase;
-    box-shadow: 0 0 10px rgba(255, 0, 200, 0.7), 0 4px 6px rgba(0, 0, 0, 0.2); /* Glow and shadow effect */
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.button.delete:hover {
-    background-color: #e600b8; /* Slightly darker pink on hover */
-    transform: scale(1.05); /* Slight hover enlargement */
-    box-shadow: 0 0 20px rgba(255, 0, 200, 1), 0 6px 8px rgba(0, 0, 0, 0.3); /* Brighter glow */
-}
-
-.button.delete:active {
-    transform: scale(0.98); /* Slight shrink effect when clicked */
-    box-shadow: 0 0 10px rgba(255, 0, 200, 0.5), 0 2px 4px rgba(0, 0, 0, 0.2); /* Dim glow */
-}
-
-
-
-.button:active {
-    transform: scale(0.98); /* Shrink on click */
-    box-shadow: 0 0 10px rgba(255, 0, 200, 0.5), 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-        .table-container {
-            overflow-x: auto;
+          width: 100%;
+          text-align: left;
+          margin-bottom: 5px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            font-size: 0.9rem;
+        .form-container select,
+        .form-container input {
+          width: 100%;
         }
 
-        table th,
-        table td {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #444;
+        .form-row {
+          flex-direction: column;
+          align-items: flex-start;
         }
+      }
+      #notifications {
+        margin-bottom: 20px;
+        text-align: center;
+      }
 
-        table th {
-            background-color: #1a1a2e;
-            color: #ff00c8;
-            font-weight: 600;
+      .notification {
+        display: inline-block;
+        padding: 15px 20px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #fff;
+        animation: fadeIn 0.5s;
+        transition: opacity 0.3s ease-out, transform 0.3s ease-in-out;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      }
+
+      .notification.success {
+        background: linear-gradient(
+          135deg,
+          #28a745,
+          #218838
+        ); /* Green gradient */
+        box-shadow: 0 4px 8px rgba(40, 167, 69, 0.4);
+      }
+
+      .notification.danger {
+        background: linear-gradient(
+          135deg,
+          #dc3545,
+          #bd2130
+        ); /* Red gradient */
+        box-shadow: 0 4px 8px rgba(220, 53, 69, 0.4);
+      }
+
+      .notification.info {
+        background: linear-gradient(
+          135deg,
+          #17a2b8,
+          #117a8b
+        ); /* Blue gradient */
+        box-shadow: 0 4px 8px rgba(23, 162, 184, 0.4);
+      }
+
+      .notification.warning {
+        background: linear-gradient(
+          135deg,
+          #ffc107,
+          #d39e00
+        ); /* Yellow gradient */
+        box-shadow: 0 4px 8px rgba(255, 193, 7, 0.4);
+      }
+
+      .notification:hover {
+        transform: scale(1.05); /* Slight enlargement on hover */
+        cursor: pointer;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
         }
-
-        table tr:nth-child(even) {
-            background-color: rgba(15, 15, 34, 0.9);
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
+      }
+      .notification .close-notification {
+        background: none;
+        border: none;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #fff;
+        margin-left: 10px;
+        cursor: pointer;
+        float: right;
+      }
 
-        table tr:hover {
-            background-color: rgba(255, 0, 200, 0.1);
-        }
-
-        /* Custom Cursor Styles */
-        #custom-cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 1000;
-        }
-
-        .cursor, .cursor-follower {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-        }
-
-        .cursor {
-            width: 10px;
-            height: 10px;
-            background-color: #ff00c8;
-            box-shadow: 0 0 12px rgba(255, 0, 200, 0.8);
-        }
-
-        .cursor-follower {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 0, 200, 0.2);
-            transition: all 0.2s ease;
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            .form-container label {
-                width: 100%;
-                text-align: left;
-                margin-bottom: 5px;
-            }
-
-            .form-container select,
-            .form-container input {
-                width: 100%;
-            }
-
-            .form-row {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-#notifications {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.notification {
-    display: inline-block;
-    padding: 15px 20px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #fff;
-    animation: fadeIn 0.5s;
-    transition: opacity 0.3s ease-out, transform 0.3s ease-in-out;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.notification.success {
-    background: linear-gradient(135deg, #28a745, #218838); /* Green gradient */
-    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.4);
-}
-
-.notification.danger {
-    background: linear-gradient(135deg, #dc3545, #bd2130); /* Red gradient */
-    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.4);
-}
-
-.notification.info {
-    background: linear-gradient(135deg, #17a2b8, #117a8b); /* Blue gradient */
-    box-shadow: 0 4px 8px rgba(23, 162, 184, 0.4);
-}
-
-.notification.warning {
-    background: linear-gradient(135deg, #ffc107, #d39e00); /* Yellow gradient */
-    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.4);
-}
-
-.notification:hover {
-    transform: scale(1.05); /* Slight enlargement on hover */
-    cursor: pointer;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-.notification .close-notification {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #fff;
-    margin-left: 10px;
-    cursor: pointer;
-    float: right;
-}
-
-.notification .close-notification:hover {
-    color: #ddd;
-}
-
-
+      .notification .close-notification:hover {
+        color: #ddd;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div id="custom-cursor">
-        <div class="cursor"></div>
-        <div class="cursor-follower"></div>
+      <div class="cursor"></div>
+      <div class="cursor-follower"></div>
     </div>
 
     <header>
-        <h1>Adjust Sessions</h1>
-        <nav>
-            <a href="{{ url_for('super_admin_panel' if current_user.role == 'SuperAdmin' else 'admin_panel') }}">Back to Panel</a>
-            <a href="{{ url_for('auth.logout') }}">Logout</a>
-        </nav>
+      <h1>Adjust Sessions</h1>
+      <nav>
+        <a
+          href="{{ url_for('super_admin_panel' if current_user.role == 'SuperAdmin' else 'admin_panel') }}"
+          >Back to Panel</a
+        >
+        <a href="{{ url_for('auth.logout') }}">Logout</a>
+      </nav>
     </header>
 
     <main>
-        {% with messages = get_flashed_messages(with_categories=True) %}
-        {% if messages %}
-        <div id="notifications">
-            {% for category, message in messages %}
-            <div class="notification {{ category }}">
-                <span>{{ message }}</span>
-                <button class="close-notification">&times;</button>
-            </div>
-            {% endfor %}
+      {% with messages = get_flashed_messages(with_categories=True) %} {% if
+      messages %}
+      <div id="notifications">
+        {% for category, message in messages %}
+        <div class="notification {{ category }}">
+          <span>{{ message }}</span>
+          <button class="close-notification">&times;</button>
         </div>
-        {% endif %}
-    {% endwith %}
-        <section>
-            <h2>Add a New Session</h2>
-            <div class="form-container">
-                <form action="{{ url_for('adjust_sessions') }}" method="POST">
-                    <label for="movie">Select Movie:</label>
-                    <select name="movie" id="movie" required>
-                        <option value="" disabled selected>Select a Movie</option>
-                        {% for movie in movies %}
-                        <option value="{{ movie.id }}">{{ movie.title }}</option>
-                        {% endfor %}
-                    </select>
+        {% endfor %}
+      </div>
+      {% endif %} {% endwith %}
+      <section>
+        <h2>Add a New Session</h2>
+        <div class="form-container">
+          <form action="{{ url_for('adjust_sessions') }}" method="POST">
+            <label for="movie">Select Movie:</label>
+            <select name="movie" id="movie" required>
+              <option value="" disabled selected>Select a Movie</option>
+              {% for movie in movies %}
+              <option value="{{ movie.id }}">{{ movie.title }}</option>
+              {% endfor %}
+            </select>
 
-                    <label for="date">Date:</label>
-                    <input type="date" name="date" id="date" required>
+            <label for="date">Date:</label>
+            <input type="date" name="date" id="date" required />
 
-                    <label for="time">Time:</label>
-                    <select name="time" id="time" required>
-                        <option value="" disabled selected>Select a Time</option>
-                        {% for t in times %}
-                        <option value="{{ t }}">{{ t }}</option>
-                        {% endfor %}
-                    </select>
+            <label for="time">Time:</label>
+            <select name="time" id="time" required>
+              <option value="" disabled selected>Select a Time</option>
+              {% for t in times %}
+              <option value="{{ t }}">{{ t }}</option>
+              {% endfor %}
+            </select>
 
-                    <label for="hall">Hall:</label>
-                    <select name="hall" id="hall" required>
-                        <option value="" disabled selected>Select a Hall</option>
-                        {% for h in halls %}
-                        <option value="{{ h }}">{{ h }}</option>
-                        {% endfor %}
-                    </select>
+            <label for="hall">Hall:</label>
+            <select name="hall" id="hall" required>
+              <option value="" disabled selected>Select a Hall</option>
+              {% for h in halls %}
+              <option value="{{ h }}">{{ h }}</option>
+              {% endfor %}
+            </select>
 
-                    <label for="total_seats">Total Seats:</label>
-                    <input type="number" name="total_seats" id="total_seats" min="1" max="60" placeholder="1-60" required>
+            <label for="total_seats">Total Seats:</label>
+            <input
+              type="number"
+              name="total_seats"
+              id="total_seats"
+              min="1"
+              max="60"
+              placeholder="1-60"
+              required
+            />
 
-                    <button type="submit">Add Session</button>
-                </form>
-            </div>
-        </section>
+            <button type="submit">Add Session</button>
+          </form>
+        </div>
+      </section>
 
-        <section>
-            <h2>Existing Sessions</h2>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Movie</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Hall</th>
-                            <th>Total Seats</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for session in sessions %}
-                        <tr>
-                            <td>{{ session.movie.title }}</td>
-                            <td>{{ session.date }}</td>
-                            <td>{{ session.time }}</td>
-                            <td>{{ session.hall }}</td>
-                            <td>{{ session.total_seats }}</td>
-                            <td>
-                                <form action="{{ url_for('delete_session', session_id=session.id) }}" method="POST" style="display: inline;">
-        <button type="submit" class="button delete">Delete</button>
-    </form>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </section>
+      <section>
+        <h2>Existing Sessions</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Movie</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Hall</th>
+                <th>Total Seats</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for session in sessions %}
+              <tr>
+                <td>{{ session.movie.title }}</td>
+                <td>{{ session.date }}</td>
+                <td>{{ session.time }}</td>
+                <td>{{ session.hall }}</td>
+                <td>{{ session.total_seats }}</td>
+                <td>
+                  <form
+                    action="{{ url_for('delete_session', session_id=session.id) }}"
+                    method="POST"
+                    style="display: inline"
+                  >
+                    <button type="submit" class="button delete">Delete</button>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const dateInput = document.getElementById('date');
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const dateInput = document.getElementById("date");
 
-                // Set min and max dates for the date input
-                const today = new Date();
-                const yearFromNow = new Date();
-                yearFromNow.setFullYear(today.getFullYear() + 1);
+          // Set min and max dates for the date input
+          const today = new Date();
+          const yearFromNow = new Date();
+          yearFromNow.setFullYear(today.getFullYear() + 1);
 
-                const formatDate = (date) => date.toISOString().split('T')[0];
-                dateInput.min = formatDate(today);
-                dateInput.max = formatDate(yearFromNow);
+          const formatDate = (date) => date.toISOString().split("T")[0];
+          dateInput.min = formatDate(today);
+          dateInput.max = formatDate(yearFromNow);
 
-                // Cursor Animation Logic
-                const cursor = document.querySelector('.cursor');
-                const follower = document.querySelector('.cursor-follower');
+          // Cursor Animation Logic
+          const cursor = document.querySelector(".cursor");
+          const follower = document.querySelector(".cursor-follower");
 
-                document.addEventListener('mousemove', (e) => {
-                    const { clientX: x, clientY: y } = e;
-                    cursor.style.transform = `translate(${x}px, ${y}px)`;
-                    follower.style.transform = `translate(${x}px, ${y}px)`;
-                });
+          document.addEventListener("mousemove", (e) => {
+            const { clientX: x, clientY: y } = e;
+            cursor.style.transform = `translate(${x}px, ${y}px)`;
+            follower.style.transform = `translate(${x}px, ${y}px)`;
+          });
 
-                document.querySelectorAll('button, a, input').forEach((elem) => {
-                    elem.addEventListener('mouseenter', () => {
-                        follower.style.width = '60px';
-                        follower.style.height = '60px';
-                        follower.style.backgroundColor = 'rgba(255, 0, 200, 0.4)';
-                    });
-                    elem.addEventListener('mouseleave', () => {
-                        follower.style.width = '40px';
-                        follower.style.height = '40px';
-                        follower.style.backgroundColor = 'rgba(255, 0, 200, 0.2)';
-                    });
-                });
+          document.querySelectorAll("button, a, input").forEach((elem) => {
+            elem.addEventListener("mouseenter", () => {
+              follower.style.width = "60px";
+              follower.style.height = "60px";
+              follower.style.backgroundColor = "rgba(255, 0, 200, 0.4)";
             });
-        </script>
-        <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const notifications = document.querySelectorAll('.notification');
-        notifications.forEach(notification => {
-            setTimeout(() => {
-                notification.style.opacity = '0';
-                setTimeout(() => notification.remove(), 300); // Remove the element after fade-out
-            }, 5000); // Notification disappears after 5 seconds
+            elem.addEventListener("mouseleave", () => {
+              follower.style.width = "40px";
+              follower.style.height = "40px";
+              follower.style.backgroundColor = "rgba(255, 0, 200, 0.2)";
+            });
+          });
         });
-    });
-</script>
-
+      </script>
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const notifications = document.querySelectorAll(".notification");
+          notifications.forEach((notification) => {
+            setTimeout(() => {
+              notification.style.opacity = "0";
+              setTimeout(() => notification.remove(), 300); // Remove the element after fade-out
+            }, 5000); // Notification disappears after 5 seconds
+          });
+        });
+      </script>
     </main>
-</body>
+  </body>
 </html>

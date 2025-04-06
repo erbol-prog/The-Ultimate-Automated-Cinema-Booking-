@@ -1,445 +1,463 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Welcome to Cinema</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-     body {
-    background: #111; /* Keep this for the animated background visibility */
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    color: #fff;
-    cursor: none; /* Optional: Hide the default cursor */
-}
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+      body {
+        background: #111; /* Keep this for the animated background visibility */
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        color: #fff;
+        cursor: none; /* Optional: Hide the default cursor */
+      }
 
-.wrapper span {
-    position: fixed;
-    bottom: -180px;
-    height: 50px;
-    width: 50px;
-    z-index: -1;
-    background-color: #800080; /* Purple inner color */
-    box-shadow: 0 0 50px #9400d3, 0 0 100px #800080, 0 0 150px #4b0082, 0 0 200px #8a2be2; /* Purple glow */
-    animation: animate 10s linear infinite;
-}
+      .wrapper span {
+        position: fixed;
+        bottom: -180px;
+        height: 50px;
+        width: 50px;
+        z-index: -1;
+        background-color: #800080; /* Purple inner color */
+        box-shadow: 0 0 50px #9400d3, 0 0 100px #800080, 0 0 150px #4b0082,
+          0 0 200px #8a2be2; /* Purple glow */
+        animation: animate 10s linear infinite;
+      }
 
-.wrapper span:nth-child(1) {
-    left: 60px;
-    animation-delay: 0.6s;
-}
-.wrapper span:nth-child(2) {
-    left: 10%;
-    animation-delay: 3s;
-    width: 60px;
-    height: 60px;
-}
-.wrapper span:nth-child(3) {
-    left: 20%;
-    animation-delay: 2s;
-}
-.wrapper span:nth-child(4) {
-    left: 30%;
-    animation-delay: 5s;
-    width: 80px;
-    height: 80px;
-}
-.wrapper span:nth-child(5) {
-    left: 40%;
-    animation-delay: 1s;
-}
-.wrapper span:nth-child(6) {
-    left: 50%;
-    animation-delay: 7s;
-}
-.wrapper span:nth-child(7) {
-    left: 60%;
-    animation-delay: 6s;
-    width: 100px;
-    height: 100px;
-}
-.wrapper span:nth-child(8) {
-    left: 70%;
-    animation-delay: 8s;
-}
-.wrapper span:nth-child(9) {
-    left: 80%;
-    animation-delay: 6s;
-    width: 90px;
-    height: 90px;
-}
-.wrapper span:nth-child(10) {
-    left: 90%;
-    animation-delay: 4s;
-}
+      .wrapper span:nth-child(1) {
+        left: 60px;
+        animation-delay: 0.6s;
+      }
+      .wrapper span:nth-child(2) {
+        left: 10%;
+        animation-delay: 3s;
+        width: 60px;
+        height: 60px;
+      }
+      .wrapper span:nth-child(3) {
+        left: 20%;
+        animation-delay: 2s;
+      }
+      .wrapper span:nth-child(4) {
+        left: 30%;
+        animation-delay: 5s;
+        width: 80px;
+        height: 80px;
+      }
+      .wrapper span:nth-child(5) {
+        left: 40%;
+        animation-delay: 1s;
+      }
+      .wrapper span:nth-child(6) {
+        left: 50%;
+        animation-delay: 7s;
+      }
+      .wrapper span:nth-child(7) {
+        left: 60%;
+        animation-delay: 6s;
+        width: 100px;
+        height: 100px;
+      }
+      .wrapper span:nth-child(8) {
+        left: 70%;
+        animation-delay: 8s;
+      }
+      .wrapper span:nth-child(9) {
+        left: 80%;
+        animation-delay: 6s;
+        width: 90px;
+        height: 90px;
+      }
+      .wrapper span:nth-child(10) {
+        left: 90%;
+        animation-delay: 4s;
+      }
 
-@keyframes animate {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    80% {
-        opacity: .7;
-    }
-    100% {
-        transform: translateY(-800px) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-        header {
-            background: rgba(15, 15, 34, 0.9);
-            padding: 20px;
-            text-align: center;
-            border-bottom: 2px solid #ff00c8;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      @keyframes animate {
+        0% {
+          transform: translateY(0);
+          opacity: 1;
         }
+        80% {
+          opacity: 0.7;
+        }
+        100% {
+          transform: translateY(-800px) rotate(360deg);
+          opacity: 0;
+        }
+      }
 
+      header {
+        background: rgba(15, 15, 34, 0.9);
+        padding: 20px;
+        text-align: center;
+        border-bottom: 2px solid #ff00c8;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      }
+
+      header h1 {
+        font-size: 2rem;
+        color: #ff00c8;
+        text-shadow: 0 0 8px #ff00c8;
+        margin: 0;
+        font-weight: 700;
+      }
+
+      header p {
+        font-size: 1rem;
+        color: #cccccc;
+        margin: 8px 0 0 0;
+        font-weight: 400;
+      }
+
+      nav ul {
+        list-style: none;
+        margin: 20px 0 0 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      nav ul li {
+        display: inline-block;
+      }
+
+      nav ul li a {
+        text-decoration: none;
+        color: #ff00c8;
+        padding: 8px 16px;
+        background: rgba(255, 0, 200, 0.2);
+        border-radius: 5px;
+        transition: background 0.3s ease, transform 0.3s ease;
+        font-weight: 500;
+      }
+
+      nav ul li a:hover {
+        background: rgba(255, 0, 200, 0.4);
+        transform: scale(1.05);
+      }
+
+      main {
+        padding: 40px 20px;
+        text-align: center;
+      }
+
+      section {
+        margin-bottom: 40px;
+      }
+
+      section h2 {
+        font-size: 1.8rem;
+        color: #ff00c8;
+        text-shadow: 0 0 8px #ff00c8;
+        margin-bottom: 30px;
+        font-weight: 700;
+      }
+
+      .cards-container {
+        display: grid;
+        /* Reduced min-width for better fit on mobile */
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        max-width: 1200px;
+      }
+
+      .card {
+        background: rgba(15, 15, 34, 0.9);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+        text-align: left;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        border: 1px solid #3a3a3a;
+        /* Ensuring consistent line-height for better truncation appearance */
+        line-height: 1.4;
+      }
+
+      .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(255, 0, 200, 0.8);
+      }
+
+      /* Truncation Utility Classes */
+      .truncate-1-line,
+      .truncate-2-lines {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+      }
+
+      /* Title: 1 line only */
+      .card h3 {
+        font-size: 1.2rem;
+        color: #ff00c8;
+        margin-bottom: 10px;
+        font-weight: 600;
+        -webkit-line-clamp: 1;
+      }
+      .card h3.truncate-1-line {
+        -webkit-line-clamp: 1;
+      }
+
+      /* Paragraphs: 2 lines max */
+      .card p {
+        font-size: 0.9rem;
+        margin: 5px 0;
+        color: #cccccc;
+        word-wrap: break-word;
+        -webkit-line-clamp: 2;
+      }
+
+      footer {
+        background: rgba(15, 15, 34, 0.9);
+        text-align: center;
+        padding: 10px 0;
+        border-top: 2px solid #ff00c8;
+      }
+
+      footer p {
+        font-size: 0.9rem;
+        margin: 0;
+        color: #cccccc;
+        font-weight: 400;
+      }
+
+      /* Custom Cursor */
+      #custom-cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 1000;
+      }
+
+      .cursor,
+      .cursor-follower {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+      }
+
+      .cursor {
+        width: 10px;
+        height: 10px;
+        background-color: #ff00c8;
+        box-shadow: 0 0 12px rgba(255, 0, 200, 0.8);
+      }
+
+      .cursor-follower {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 0, 200, 0.2);
+        transition: all 0.2s ease;
+      }
+
+      @media (max-width: 768px) {
         header h1 {
-            font-size: 2rem;
-            color: #ff00c8;
-            text-shadow: 0 0 8px #ff00c8;
-            margin: 0;
-            font-weight: 700;
+          font-size: 1.6rem;
         }
 
         header p {
-            font-size: 1rem;
-            color: #cccccc;
-            margin: 8px 0 0 0;
-            font-weight: 400;
-        }
-
-        nav ul {
-            list-style: none;
-            margin: 20px 0 0 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        nav ul li {
-            display: inline-block;
+          font-size: 0.9rem;
         }
 
         nav ul li a {
-            text-decoration: none;
-            color: #ff00c8;
-            padding: 8px 16px;
-            background: rgba(255, 0, 200, 0.2);
-            border-radius: 5px;
-            transition: background 0.3s ease, transform 0.3s ease;
-            font-weight: 500;
-        }
-
-        nav ul li a:hover {
-            background: rgba(255, 0, 200, 0.4);
-            transform: scale(1.05);
-        }
-
-        main {
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        section {
-            margin-bottom: 40px;
+          font-size: 0.9rem;
+          padding: 6px 12px;
         }
 
         section h2 {
-            font-size: 1.8rem;
-            color: #ff00c8;
-            text-shadow: 0 0 8px #ff00c8;
-            margin-bottom: 30px;
-            font-weight: 700;
+          font-size: 1.5rem;
+          margin-bottom: 25px;
+        }
+
+        .card h3 {
+          font-size: 1.1rem;
+        }
+
+        .card p {
+          font-size: 0.85rem;
+        }
+
+        main {
+          padding: 30px 10px;
+        }
+
+        section {
+          margin-bottom: 30px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        main {
+          padding: 20px 10px;
+        }
+
+        header h1 {
+          font-size: 1.4rem;
+        }
+
+        header p {
+          font-size: 0.8rem;
+        }
+
+        section h2 {
+          font-size: 1.3rem;
+        }
+
+        .card h3 {
+          font-size: 1rem;
+        }
+
+        .card p {
+          font-size: 0.8rem;
         }
 
         .cards-container {
-            display: grid;
-            /* Reduced min-width for better fit on mobile */
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto;
-            max-width: 1200px;
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         }
-
-        .card {
-            background: rgba(15, 15, 34, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-            text-align: left;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            border: 1px solid #3a3a3a;
-            /* Ensuring consistent line-height for better truncation appearance */
-            line-height: 1.4;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(255, 0, 200, 0.8);
-        }
-
-        /* Truncation Utility Classes */
-        .truncate-1-line, .truncate-2-lines {
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: normal;
-        }
-
-        /* Title: 1 line only */
-        .card h3 {
-            font-size: 1.2rem;
-            color: #ff00c8;
-            margin-bottom: 10px;
-            font-weight: 600;
-            -webkit-line-clamp: 1;
-        }
-        .card h3.truncate-1-line {
-            -webkit-line-clamp: 1;
-        }
-
-        /* Paragraphs: 2 lines max */
-        .card p {
-            font-size: 0.9rem;
-            margin: 5px 0;
-            color: #cccccc;
-            word-wrap: break-word;
-            -webkit-line-clamp: 2;
-        }
-
-        footer {
-            background: rgba(15, 15, 34, 0.9);
-            text-align: center;
-            padding: 10px 0;
-            border-top: 2px solid #ff00c8;
-        }
-
-        footer p {
-            font-size: 0.9rem;
-            margin: 0;
-            color: #cccccc;
-            font-weight: 400;
-        }
-
-        /* Custom Cursor */
-        #custom-cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 1000;
-        }
-
-        .cursor, .cursor-follower {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-        }
-
-        .cursor {
-            width: 10px;
-            height: 10px;
-            background-color: #ff00c8;
-            box-shadow: 0 0 12px rgba(255, 0, 200, 0.8);
-        }
-
-        .cursor-follower {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 0, 200, 0.2);
-            transition: all 0.2s ease;
-        }
-
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.6rem;
-            }
-
-            header p {
-                font-size: 0.9rem;
-            }
-
-            nav ul li a {
-                font-size: 0.9rem;
-                padding: 6px 12px;
-            }
-
-            section h2 {
-                font-size: 1.5rem;
-                margin-bottom: 25px;
-            }
-
-            .card h3 {
-                font-size: 1.1rem;
-            }
-
-            .card p {
-                font-size: 0.85rem;
-            }
-
-            main {
-                padding: 30px 10px;
-            }
-
-            section {
-                margin-bottom: 30px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            main {
-                padding: 20px 10px;
-            }
-
-            header h1 {
-                font-size: 1.4rem;
-            }
-
-            header p {
-                font-size: 0.8rem;
-            }
-
-            section h2 {
-                font-size: 1.3rem;
-            }
-
-            .card h3 {
-                font-size: 1rem;
-            }
-
-            .card p {
-                font-size: 0.8rem;
-            }
-
-            .cards-container {
-                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="wrapper">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-</div>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
 
     <div id="custom-cursor">
-        <div class="cursor"></div>
-        <div class="cursor-follower"></div>
+      <div class="cursor"></div>
+      <div class="cursor-follower"></div>
     </div>
 
     <header>
-        <h1>Welcome to AIT Cinema</h1>
-        <p>Discover the best movies and create your perfect cinema experience</p>
-        <p>Book your tickets with ease and enjoy the magic</p>
-        <nav>
-            <ul>
-                {% if current_user.is_authenticated %}
-                    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-                    {% if current_user.role == 'User' %}
-                        <li><a href="{{ url_for('user_panel') }}">User Panel</a></li>
-                    {% elif current_user.role == 'Admin' %}
-                        <li><a href="{{ url_for('admin_panel') }}">Admin Panel</a></li>
-                    {% elif current_user.role == 'SuperAdmin' %}
-                        <li><a href="{{ url_for('super_admin_panel') }}">SuperAdmin Panel</a></li>
-                    {% endif %}
-                {% else %}
-                    <li><a href="{{ url_for('user_panel') }}">User Panel</a></li>
-                    <li><a href="{{ url_for('admin_panel') }}">Admin Panel</a></li>
-                    <li><a href="{{ url_for('super_admin_panel') }}">SuperAdmin Panel</a></li>
-                {% endif %}
-            </ul>
-        </nav>
+      <h1>Welcome to AIT Cinema</h1>
+      <p>Discover the best movies and create your perfect cinema experience</p>
+      <p>Book your tickets with ease and enjoy the magic</p>
+      <nav>
+        <ul>
+          {% if current_user.is_authenticated %}
+          <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+          {% if current_user.role == 'User' %}
+          <li><a href="{{ url_for('user_panel') }}">User Panel</a></li>
+          {% elif current_user.role == 'Admin' %}
+          <li><a href="{{ url_for('admin_panel') }}">Admin Panel</a></li>
+          {% elif current_user.role == 'SuperAdmin' %}
+          <li>
+            <a href="{{ url_for('super_admin_panel') }}">SuperAdmin Panel</a>
+          </li>
+          {% endif %} {% else %}
+          <li><a href="{{ url_for('user_panel') }}">User Panel</a></li>
+          <li><a href="{{ url_for('admin_panel') }}">Admin Panel</a></li>
+          <li>
+            <a href="{{ url_for('super_admin_panel') }}">SuperAdmin Panel</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
     </header>
 
     <main>
-        <section>
-            <h2>Upcoming Sessions</h2>
-            <div class="cards-container">
-                {% for session in upcoming_sessions %}
-                <div class="card" onclick="showDetails('session', {{ session | tojson }})">
-                    <h3 class="truncate-1-line">{{ session.movie_title }}</h3>
-                    <p class="truncate-2-lines">Date: {{ session.date }}</p>
-                    <p class="truncate-2-lines">Time: {{ session.time }}</p>
-                    <p class="truncate-2-lines">Hall: {{ session.hall }}</p>
-                </div>
-                {% endfor %}
-            </div>
-        </section>
+      <section>
+        <h2>Upcoming Sessions</h2>
+        <div class="cards-container">
+          {% for session in upcoming_sessions %}
+          <div
+            class="card"
+            onclick="showDetails('session', {{ session | tojson }})"
+          >
+            <h3 class="truncate-1-line">{{ session.movie_title }}</h3>
+            <p class="truncate-2-lines">Date: {{ session.date }}</p>
+            <p class="truncate-2-lines">Time: {{ session.time }}</p>
+            <p class="truncate-2-lines">Hall: {{ session.hall }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
 
-        <section>
-            <h2>Most popular Movies</h2>
-            <div class="cards-container">
-                {% for movie in top_movies %}
-                <div class="card" onclick="showDetails('movie', {{ movie | tojson }})">
-                    <h3 class="truncate-1-line">{{ movie.title }}</h3>
-                    <p class="truncate-2-lines"><strong>Release date:</strong> {{ movie.release_date }}</p>
-                    <p class="truncate-2-lines"><strong>Genre:</strong> {{ movie.genre }}</p>
-                    <p class="truncate-2-lines"><strong>Description:</strong> {{ movie.description }}</p>
-                </div>
-                {% endfor %}
-            </div>
-        </section>
+      <section>
+        <h2>Most popular Movies</h2>
+        <div class="cards-container">
+          {% for movie in top_movies %}
+          <div
+            class="card"
+            onclick="showDetails('movie', {{ movie | tojson }})"
+          >
+            <h3 class="truncate-1-line">{{ movie.title }}</h3>
+            <p class="truncate-2-lines">
+              <strong>Release date:</strong> {{ movie.release_date }}
+            </p>
+            <p class="truncate-2-lines">
+              <strong>Genre:</strong> {{ movie.genre }}
+            </p>
+            <p class="truncate-2-lines">
+              <strong>Description:</strong> {{ movie.description }}
+            </p>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
     </main>
 
     <footer>
-        <p>© 2024 Cinema Booking System. All rights reserved.</p>
+      <p>© 2024 Cinema Booking System. All rights reserved.</p>
     </footer>
 
     <script>
-        function showDetails(type, data) {
-            let details = "";
-            if (type === "session") {
-                details = `Session Details:\nTitle: ${data.movie_title}\nDate: ${data.date}\nTime: ${data.time}\nHall: ${data.hall}`;
-            } else if (type === "movie") {
-                details = `Movie Details:\nTitle: ${data.title}\nDescription: ${data.description}\nDuration: ${data.duration} minutes\nGenre: ${data.genre}`;
-            }
-            alert(details);
+      function showDetails(type, data) {
+        let details = "";
+        if (type === "session") {
+          details = `Session Details:\nTitle: ${data.movie_title}\nDate: ${data.date}\nTime: ${data.time}\nHall: ${data.hall}`;
+        } else if (type === "movie") {
+          details = `Movie Details:\nTitle: ${data.title}\nDescription: ${data.description}\nDuration: ${data.duration} minutes\nGenre: ${data.genre}`;
         }
+        alert(details);
+      }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const cursor = document.querySelector('.cursor');
-            const follower = document.querySelector('.cursor-follower');
+      document.addEventListener("DOMContentLoaded", () => {
+        const cursor = document.querySelector(".cursor");
+        const follower = document.querySelector(".cursor-follower");
 
-            document.addEventListener('mousemove', (e) => {
-                const { clientX: x, clientY: y } = e;
-                cursor.style.transform = `translate(${x}px, ${y}px)`;
-                follower.style.transform = `translate(${x}px, ${y}px)`;
-            });
-
-            document.querySelectorAll('button, a, .card').forEach((elem) => {
-                elem.addEventListener('mouseenter', () => {
-                    follower.style.width = '60px';
-                    follower.style.height = '60px';
-                    follower.style.backgroundColor = 'rgba(255, 0, 200, 0.4)';
-                });
-
-                elem.addEventListener('mouseleave', () => {
-                    follower.style.width = '40px';
-                    follower.style.height = '40px';
-                    follower.style.backgroundColor = 'rgba(255, 0, 200, 0.2)';
-                });
-            });
+        document.addEventListener("mousemove", (e) => {
+          const { clientX: x, clientY: y } = e;
+          cursor.style.transform = `translate(${x}px, ${y}px)`;
+          follower.style.transform = `translate(${x}px, ${y}px)`;
         });
+
+        document.querySelectorAll("button, a, .card").forEach((elem) => {
+          elem.addEventListener("mouseenter", () => {
+            follower.style.width = "60px";
+            follower.style.height = "60px";
+            follower.style.backgroundColor = "rgba(255, 0, 200, 0.4)";
+          });
+
+          elem.addEventListener("mouseleave", () => {
+            follower.style.width = "40px";
+            follower.style.height = "40px";
+            follower.style.backgroundColor = "rgba(255, 0, 200, 0.2)";
+          });
+        });
+      });
     </script>
-</body>
+  </body>
 </html>
